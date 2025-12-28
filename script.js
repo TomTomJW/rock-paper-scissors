@@ -37,24 +37,47 @@ function playRound(humanChoice, computerChoice) {
     playerChoices.style.cssText = "text-align: center;"
     resultSection.appendChild(playerChoices);
 
-    let message = document.createElement("p");
-    message.style.cssText = "text-align: center;"
+    let scores = document.createElement("p");
+    scores.style.cssText = "text-align: center;"
     if (
         ((computerChoice === "paper") && (humanChoice === "rock")) || 
         ((computerChoice === "rock") && (humanChoice === "scissors")) ||
         ((computerChoice === "scissors") && (humanChoice === "paper"))) {
         computerScore = computerScore + 1;
-        console.log("You have lost! Good luck next time");
-        message.textContent = "You have lost! Good luck next time";
     } else if (computerChoice === humanChoice) {
-        console.log("There is a tie. Try again");
-        message.textContent = "There is a tie. Try again";
+        //Do Nothing
     } else {
         humanScore = humanScore + 1;
-        console.log("You have won, congratulations!");
-        message.textContent = "You have won, congratulations!";
     }
-    resultSection.appendChild(message);
+    scores.textContent = "Your Score: " + humanScore + " Computer Score: " + computerScore;
+    resultSection.appendChild(scores);
+
+    let gameOverText = document.createElement("p");
+    let resetButton = document.createElement("button");
+    resetButton.textContent = "Reset";
+    if (humanScore === 5) {
+        gameOverText.style.cssText = "text-align: center";
+        gameOverText.textContent = "You have won, congratulations!";
+        document.getElementById("rock").style.display = "none";
+        document.getElementById("paper").style.display = "none";
+        document.getElementById("scissors").style.display = "none";
+        document.querySelector("h2").style.display = "none";
+    }
+    if (computerScore === 5) {
+        gameOverText.style.cssText = "text-align: center";
+        gameOverText.textContent = "You have lost! Good luck next time";
+        document.getElementById("rock").style.display = "none";
+        document.getElementById("paper").style.display = "none";
+        document.getElementById("scissors").style.display = "none";
+        document.querySelector("h2").style.display = "none";
+    }
+    resultSection.appendChild(gameOverText);
+    if ((humanScore === 5) || (computerScore === 5)) {
+        resultSection.appendChild(resetButton);
+    }
+    resetButton.addEventListener("click", () => {
+        window.location.reload();//Reloads the page
+    });
 }
 
 function playGame(playerSelection) {

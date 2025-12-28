@@ -1,7 +1,12 @@
+* {
+    text-align: center;
+}
+
 .buttons {
     text-align: center;
 }
 
 button {
     margin: 0 5px;
+    text-align: center;
 }
